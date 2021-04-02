@@ -2,8 +2,11 @@ package com.bruno.FriendsREST;
 
 import com.bruno.FriendsREST.model.Friend;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class SystemTests {
@@ -22,5 +25,19 @@ public class SystemTests {
         restTemplate.delete(url + "/" + entity.getBody().getId());
         Friend[] friendEmptyList = restTemplate.getForObject(url, Friend[].class);
         Assertions.assertThat(friendEmptyList).extracting(Friend::getFirstName).doesNotContain("Janice");
+    }
+
+    @Test
+    public void testErrorHandlingReturnsBadRequest() {
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "http://localhost:8080/wrong";
+
+        try {
+            restTemplate.getForEntity(url, String.class);
+        } catch (HttpClientErrorException e) {
+            Assert.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
+        }
     }
 }

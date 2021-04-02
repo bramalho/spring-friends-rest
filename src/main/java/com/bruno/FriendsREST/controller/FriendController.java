@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -63,5 +64,10 @@ public class FriendController {
         }
 
         return Collections.emptyList();
+    }
+
+    @GetMapping("/wrong")
+    public Friend somethingWentWrong() {
+        throw new ValidationException("Something went wrong");
     }
 }
