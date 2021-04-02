@@ -29,6 +29,14 @@ public class Friend {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Address> addresses;
 
+    public Friend() {
+    }
+
+    public Friend(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public int getId() {
         return id;
     }
