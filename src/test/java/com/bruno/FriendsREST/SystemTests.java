@@ -29,13 +29,10 @@ public class SystemTests {
 
     @Test
     public void testErrorHandlingReturnsBadRequest() {
-
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "http://localhost:8080/wrong";
-
         try {
-            restTemplate.getForEntity(url, String.class);
+            restTemplate.getForEntity("http://localhost:8080/wrong", String.class);
         } catch (HttpClientErrorException e) {
             Assert.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
         }
