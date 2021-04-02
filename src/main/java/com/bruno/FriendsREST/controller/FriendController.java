@@ -18,17 +18,17 @@ public class FriendController {
     FriendService friendService;
 
     @GetMapping("/friend")
-    Iterable<Friend> read() {
+    public Iterable<Friend> read() {
         return friendService.findAll();
     }
 
     @PostMapping("/friend")
-    Friend save(@Valid @RequestBody Friend friend){
+    public Friend save(@Valid @RequestBody Friend friend){
         return friendService.save(friend);
     }
 
     @PutMapping("friend")
-    ResponseEntity<Friend> update(@RequestBody Friend friend) {
+    public ResponseEntity<Friend> update(@RequestBody Friend friend) {
         if (friendService.findById(friend.getId()).isPresent())
             return new ResponseEntity(friendService.save(friend), HttpStatus.OK);
         else
@@ -36,17 +36,17 @@ public class FriendController {
     }
 
     @DeleteMapping("friend/{id}")
-    void delete(@PathVariable int id) {
+    public void delete(@PathVariable int id) {
         friendService.deleteById(id);
     }
 
     @GetMapping("/friend/{id}")
-    Optional<Friend> findById(@PathVariable Integer id) {
+    public Optional<Friend> findById(@PathVariable Integer id) {
         return friendService.findById(id);
     }
 
     @GetMapping("/friend/search")
-    Iterable<Friend> findByQuery(
+    public Iterable<Friend> findByQuery(
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "lastName", required = false) String lastName)
     {
