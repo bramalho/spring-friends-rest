@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  db:
+    container_name: db
+    image: mariadb:10.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: friends
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    command: [ mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci ]
+    ports:
+      - 3306:3306
